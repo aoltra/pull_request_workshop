@@ -1,0 +1,21 @@
+# CODEOWNERS para este repositorio
+# Formato: <patrón de archivos>   <usuarios o equipos que deben aprobar>
+
+# 1. Todos los archivos que están en la raíz del repositorio
+/*                @0492-0616-0379-PI-DAM|DAW|ASIR/profesores-PI
+
+# 2. Todo lo que esté dentro de la carpeta "ASIR" (y subcarpetas)
+/ASIR/               @blacksark
+/ASIR/**             @blacksark
+
+# 3. Todo lo que esté dentro de la carpeta "DAW" (y subcarpetas)
+/DAW/               @GGEdu
+/DAW/**             @GGEdu
+
+# 4. Todo lo que esté dentro de la carpeta "DAM" (y subcarpetas)
+/DAM/               @alfredo-ptcf
+/DAM/**             @alfredo-ptcf
+
+# NOTA: Las reglas se evalúan de arriba hacia abajo.
+#       Como la raíz (/*) está arriba, cualquier archivo que no esté dentro de DAW, DAW, ASIR
+#       seguirá requiriendo aprobación de @profesores.
