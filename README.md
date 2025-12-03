@@ -1,6 +1,6 @@
 #  Taller Pull Request (PR)
 
-Repo para hacer pruebas de PR en github. 
+Repo para hacer pruebas de PR en **GitHub**. 
 
 Y de paso obtener un lista de canciones para programar y de películas para ver 😉
 
@@ -10,11 +10,11 @@ Uso únicamente académico.
 
 ## Solicitud de PR
 
-1. Loguearse en GitHub
+1. Loguearse en **GitHub**
 
 2. Ir a la [url del repo](https://github.com/0492-0616-0379-PI-DAM-DAW-ASIR/pull_request_workshop) y hacer un fork del repositorio 
 
-3. Clonar fork en local
+3. Clonar __fork__ en local
 
 4. Crear una rama en el local para la nueva _feature_
 
@@ -51,7 +51,7 @@ Uso únicamente académico.
 
   9. Crear el PR
 
-     * Indicar sobre quién y desde dónde se quiere hacer el PR. A la izquierda se indica el repo original y la derecha la rama de nuestro repo (el fork). En general viene configurado correctamente por defecto.
+     * Indicar sobre quién y desde dónde se quiere hacer el PR. A la izquierda se indica el repo original y la derecha la rama de nuestro repo (el _fork_). En general viene configurado correctamente por defecto.
 
      * Indicar un título al PR. Por defecto viene asignado el mensaje del commit
 
@@ -61,7 +61,7 @@ Uso únicamente académico.
 
 ## Revisión
 
-1. El revisor se loguea en GitHub
+1. El revisor se loguea en **GitHub**
 
 2. Una vez se accede al repo, en la barra superior aparecerán los PR pendientes.
 
@@ -72,4 +72,80 @@ Uso únicamente académico.
 5. Aprobar el PR, hacer un comentario o solicitar cambios para que pueda ser aprobada en un futuro.
 
 6. Hacer la fusión con la rama principal. Para ello hay que elegir la estrategia de fusionado.
+
+## Actualización del repo local
+
+Si el PR ha sido aprobado y fusionado lo más adecuado es actualizar nuestro repo local, eliminando la rama de la feature y actualizando el código desde el repo original.
+
+1. Añadir, si no lo está, el repositorio original como remoto. 
+ 
+   **Git** por defecto sólo crea como remoto aquel repositorio desde el cual se ha clonado. En nuestro caso como la clonación se ha hecho a partir del _fork_ realizado del repositorio original, es este él digo que está configurado (generalmente con el alias _origin_). 
+
+   ```bash
+   $ git remote -v                                                                
+   origin  git@github.com:GITHUB_USER/pull_request_workshop.git (fetch)
+   origin  git@github.com:GITHUB_USER/pull_request_workshop.git (push)
+   ```
+
+   Es decir, nuestra repo local no sabe de al existencia del repo original, de aquel que hemos "forkeado".
+
+   Para poder tener acceso a su código y actualizar debemos añadir otro remoto, en nuestro caso:
+
+   ```bash
+   $ git remote add upstream git@github.com:0492-0616-0379-PI-DAM-DAW-ASIR/pull_request_workshop.git
+   $ git remote -v                                                                                  
+   origin  git@github.com:GITHUB_USER/pull_request_workshop.git (fetch)
+   origin  git@github.com:GITHUB_USER/pull_request_workshop.git (push)
+   upstream  git@github.com:0492-0616-0379-PI-DAM-DAW-ASIR/pull_request_workshop.git (fetch)
+   upstream  git@github.com:0492-0616-0379-PI-DAM-DAW-ASIR/pull_request_workshop.git (push)
+   ```
+
+2. En el repo local, cambiar a la rama _main/master_
+
+   ```bash
+   $ git checkout main
+   ```
+
+3. Borrar la rama local
+
+   ```bash
+   $ git branch -d nueva_cancion
+   ```
+
+4. Borrar la rama remota del _fork_ (_origin_)
+
+   ```bash
+   $ git push origin --delete nueva_cancion
+   ```
+
+5. Traer los cambios desde el repo original (_upstream_)
+
+   ```bash
+   $ git fetch upstream
+   remote: Enumerating objects: 16, done.
+   remote: Counting objects: 100% (16/16), done.
+   remote: Compressing objects: 100% (8/8), done.
+   remote: Total 13 (delta 5), reused 11 (delta 4), pack-reused 0 (from 0)
+   Desempaquetando objetos: 100% (13/13), 3.81 KiB | 354.00 KiB/s, listo.
+   Desde github.com:0492-0616-0379-PI-DAM-DAW-ASIR/pull_request_workshop
+    * [nueva rama]      main       -> upstream/main
+   ```
+
+6. Fusionamos los cambios descagados a la rama local, eligiendo la opción de fusionado que queramos. Por ejemplo:
+
+   ```bash
+   $ git merge upstream/main
+   ```
+
+   o
+
+   ```bash
+   git rebase upstream/main
+   ```
+
+7. Ya tenemos actualizado el repo local, pero no nuestro fork de GitHub (_origin_). Simplemente subimos los cambios
+
+   ```bash
+   $ git push origin main
+   ```
 
